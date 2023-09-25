@@ -9,9 +9,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  productsForm: FormGroup;
+  // chart.js input data
   type = 'bar';
-  selectedFilter: 'Last 4 Days'
   filteredProducts = {    // Default Value
     labels: ["day 1", "day 2", "day 3", "day 4"],
     datasets: chartData,
@@ -20,6 +19,9 @@ export class AppComponent {
   options = {
     responsive: true,
   };
+
+  // Filter Data
+  product: any;
   productsFilter = [
     {
       "id": 1,
@@ -39,31 +41,20 @@ export class AppComponent {
     }
   ];
 
-  constructor(private fb: FormBuilder) {
-    this.productsForm = this.fb.group({
-      filterProduct: [''],
-      date: ['']
-    })
+  /**
+   * 
+   * @param current - filtered value on select
+   */
+  onChange(current) {
+    this.filteredProducts = current.values;
+    console.log('payLoad',current)
   }
 
   /**
    * 
-   * @param index 
-   * @returns updated value after Choosing the filter
+   * @param event - selected Date
    */
-  getValue(index) {
-    // receive the custom date value if I have mock api data
-    // if (this.productsForm.value.date)
-    // console.log(this.productsForm.value.date)
-    return {
-      value: this.productsFilter[index].values,
-      id: this.productsFilter[index].id,
-      displayText: this.productsFilter[index].displayText,
-    }
-  }
-
-  onChange(current) {
-    this.filteredProducts = current.value;
-    console.log('payLoad',current)
+  OnDateChange(event): void {
+    console.log('event',event)
   }
 }

@@ -13,24 +13,20 @@
 <!--Filter By Custom Date -->
 <div class="row">
 <div class="mt-4 marginRightStyle col">
-  <form [formGroup]="productsForm">
     <mat-form-field >
-      <input matInput [matDatepicker]="dp" placeholder="Custom datepicker" formControlName="date">
+      <input matInput [matDatepicker]="dp" placeholder="Custom datepicker" (dateInput)="OnDateChange($event.value)">
       <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
       <mat-datepicker #dp></mat-datepicker>
     </mat-form-field>
-    </form>
 </div>
 <!--End-->
 <!--Filter by Dropdown values-->
 <div class=" mt-4 marginLeftStyle col">
-    <select  class="float-end mt-3" aria-placeholder="select" (change)="onChange(selectedFilter)" [(ngModel)]="selectedFilter">
-      <option value="" disabled selected hidden>Last 4 Days</option>
-      <option *ngFor="let product of productsFilter; let i = index;"
-        [ngValue]="getValue(i)">
-        {{ product.displayText }}
-      </option>
-    </select>
+    <mat-form-field class="float-end mt-3">
+      <mat-select [(ngModel)]="product"  placeholder="Select Value" (selectionChange)="onChange($event.value)">
+        <mat-option *ngFor="let product of productsFilter" [value]="product">{{ product.displayText }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 </div>
 </div>
 <!--End-->
